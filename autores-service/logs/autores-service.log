@@ -1,0 +1,16 @@
+2026-05-13 18:27:07 INFO  [org.distribuidos.autores.DataLoader] (Quarkus Main Thread) 
+================================
+       SERVICIO AUTORES
+       INICIADO OK 
+================================
+
+2026-05-13 18:27:07 DEBUG [org.distribuidos.autores.DataLoader] (Quarkus Main Thread) Intentando cargar autor: Carlos Ruiz Zafón
+2026-05-13 18:27:07 DEBUG [org.distribuidos.autores.DataLoader] (Quarkus Main Thread) Autor ya existe, no se carga: Carlos Ruiz Zafón
+2026-05-13 18:27:07 DEBUG [org.distribuidos.autores.DataLoader] (Quarkus Main Thread) Intentando cargar autor: Isabel Allende
+2026-05-13 18:27:07 DEBUG [org.distribuidos.autores.DataLoader] (Quarkus Main Thread) Autor ya existe, no se carga: Isabel Allende
+2026-05-13 18:27:07 INFO  [io.quarkus] (Quarkus Main Thread) autores-service 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.20.3) started in 7.479s. Listening on: http://0.0.0.0:8082
+2026-05-13 18:27:07 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2026-05-13 18:27:07 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, rest, rest-client, rest-client-jackson, rest-jackson, smallrye-context-propagation, smallrye-openapi, swagger-ui, vertx]
+2026-05-13 18:28:24 DEBUG [org.distribuidos.autores.recurso.RecursoAutor] (executor-thread-1) Obtener por id: 1
+2026-05-13 18:28:24 DEBUG [org.distribuidos.autores.repository.AutorRepository] (executor-thread-1) Buscando autor por ID: 1
+2026-05-13 18:29:20 INFO  [io.quarkus] (Quarkus Main Thread) autores-service stopped in 0.010s
