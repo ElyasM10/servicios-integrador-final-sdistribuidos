@@ -52,8 +52,6 @@ public class RecursoAutor {
 
         auditor.debug("Crear autor: " + transferibleAutorPost);
 
-
-
         if (transferibleAutorPost.getNombre() == null || transferibleAutorPost.getNombre().isBlank()) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("El nombre es obligatorio")

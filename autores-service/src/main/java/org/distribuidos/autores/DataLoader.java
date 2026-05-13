@@ -1,5 +1,6 @@
 package org.distribuidos.autores;
 
+import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,6 +20,9 @@ public class DataLoader {
     @Inject
     Logger auditor;
 
+    void onStop(@Observes ShutdownEvent ev) {
+        auditor.info("Servicio autores se esta deteniendo...");
+    }
 
     void onStart(@Observes StartupEvent ev) {
 
