@@ -1,0 +1,17 @@
+[ {
+  "id" : 1,
+  "titulo" : "La sombra del viento",
+  "autorId" : 1
+}, {
+  "id" : 2,
+  "titulo" : "El juego del ángel",
+  "autorId" : 1
+}, {
+  "id" : 3,
+  "titulo" : "La casa de los espíritus",
+  "autorId" : 2
+}, {
+  "id" : 4,
+  "titulo" : "Eva Luna",
+  "autorId" : 2
+} ]

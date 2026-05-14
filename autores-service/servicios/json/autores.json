@@ -1,0 +1,9 @@
+[ {
+  "id" : 1,
+  "nombre" : "Carlos Ruiz Zafón",
+  "editorialId" : 1
+}, {
+  "id" : 2,
+  "nombre" : "Isabel Allende",
+  "editorialId" : 1
+} ]

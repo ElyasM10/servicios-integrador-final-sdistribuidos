@@ -7,39 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @ApplicationScoped
 public class AutorRepository {
 
-    private Map<Long, Autor> data = new HashMap<>();
-    private AtomicLong seq = new AtomicLong();
-
-    public Autor guardar(Autor autor){
-        autor.setId(seq.incrementAndGet());
-        data.put(autor.getId(), autor);
-        return autor;
-    }
-/*
-    public Autor findById(Long id){
-        return data.get(id);
-    }
-
-    public List<Autor> findAll(){
-        return new ArrayList<>(data.values());
-    }
-
-    public List<Autor> findByEditorial(Long editorialId){
-        return data.values()
-                .stream()
-                .filter(a -> a.getEditorialId().equals(editorialId))
-                .toList();
-    }
-
- */
-private static final Logger auditor = LoggerFactory.getLogger(AutorRepository.class);
+    private static final Logger auditor = LoggerFactory.getLogger(AutorRepository.class);
 
     private static final String RUTA = "/var/servicios/json/autores.json";
+    // private static final String RUTA = "servicios/json/autores.json";// para probar localmente y no en la maquina virtual
 
     // OBTENER TODOS
     public List<Autor> findAll() {
@@ -110,6 +85,19 @@ private static final Logger auditor = LoggerFactory.getLogger(AutorRepository.cl
     private void escribirArchivo(List<Autor> autores) {
         try {
             File file = new File(RUTA);
+
+            /*
+            // CREAR DIRECTORIOS SI NO EXISTEN
+            File directorio = file.getParentFile();
+
+            if (!directorio.exists()) {
+
+                auditor.debug("Creando directorios: " + directorio.getAbsolutePath());
+
+                directorio.mkdirs();
+            }
+        */
+            auditor.debug("Ruta del archivo: " + file.getAbsolutePath());
 
             ObjectMapper mapper = new ObjectMapper();
 

@@ -3,45 +3,18 @@ package org.distribuidos.libros.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.distribuidos.libros.modelo.Libro;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class LibroRepository {
 
-    private Map<Long, Libro> data = new HashMap<>();
-    private AtomicLong seq = new AtomicLong();
-
-    public Libro guardar(Libro libro){
-        libro.setId(seq.incrementAndGet());
-        data.put(libro.getId(), libro);
-        return libro;
-    }
-/*
-    public Libro findById(Long id){
-        return data.get(id);
-    }
-
-    public List<Libro> findAll(){
-        return new ArrayList<>(data.values());
-    }
-
-    public List<Libro> findByAutor(Long autorId){
-        return data.values()
-                .stream()
-                .filter(l -> l.getAutorId().equals(autorId))
-                .toList();
-    }
-    */
    private static final Logger auditor = LoggerFactory.getLogger(LibroRepository.class);
 
     private static final String RUTA = "/var/servicios/json/libros.json";
-
+ //   private static final String RUTA = "servicios/json/libros.json"; //para probar localmente y no en la maquina virtual
     public List<Libro> findAll() {
 
         auditor.debug("Obteniendo todos los libros");
@@ -72,21 +45,32 @@ public class LibroRepository {
     }
 
     private void escribirArchivo(List<Libro> libros) {
+
         try {
+
             auditor.debug("Iniciando escritura de archivo libros.json");
 
             File file = new File(RUTA);
 
+            /*
+            // CREAR DIRECTORIOS SI NO EXISTEN
+            File directorio = file.getParentFile();
+
+            if (!directorio.exists()) {
+
+                auditor.debug("Creando directorios: " + directorio.getAbsolutePath());
+
+                directorio.mkdirs();
+            }
+*/
             auditor.debug("Ruta del archivo: " + file.getAbsolutePath());
 
             ObjectMapper mapper = new ObjectMapper();
 
-            auditor.debug("Convirtiendo lista de libros a JSON");
-
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(file, libros);
 
-            auditor.debug("Archivo libros.json actualizado. Cantidad: " + libros.size());
+            auditor.debug("Archivo guardado correctamente");
 
         } catch (Exception e) {
             auditor.error("Error escribiendo archivo libros.json", e);

@@ -3,43 +3,18 @@ package org.distribuidos.editorial.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.distribuidos.editorial.modelo.Editorial;
-import org.distribuidos.editorial.transferible.TransferibleEditorial;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @ApplicationScoped
 public class EditorialRepository {
 
-    private Map<Long, Editorial> data = new HashMap<>();
-    private AtomicLong seq = new AtomicLong();
-
-    public Editorial guardar(TransferibleEditorial dto) {
-
-        Editorial e = new Editorial();
-        e.setId(seq.incrementAndGet());
-        e.setNombre(dto.getNombre());
-        e.setPais(dto.getPais());
-
-        data.put(e.getId(), e);
-
-        return e;
-    }
-/*
-    public Editorial findById(Long id) {
-        return data.get(id);
-    }
-
-    public List<Editorial> findAll(){
-        return new ArrayList<>(data.values());
-    }
-*/
     private static final Logger auditor = LoggerFactory.getLogger(EditorialRepository.class);
 
-    private static final String RUTA = "/var/servicios/json/editoriales.json";
+      private static final String RUTA = "/var/servicios/json/editoriales.json";
+  //  private static final String RUTA = "servicios/json/editoriales.json";// para probar localmente y no en la maquina virtual
 
     // OBTENER TODOS
     public List<Editorial> findAll() {
@@ -101,6 +76,19 @@ public class EditorialRepository {
     private void escribirArchivo(List<Editorial> editoriales) {
         try {
             File file = new File(RUTA);
+
+
+            // CREAR DIRECTORIOS SI NO EXISTEN
+            File directorio = file.getParentFile();
+
+            if (!directorio.exists()) {
+
+                auditor.debug("Creando directorios: " + directorio.getAbsolutePath());
+
+                directorio.mkdirs();
+            }
+
+            auditor.debug("Ruta del archivo: " + file.getAbsolutePath());
 
             ObjectMapper mapper = new ObjectMapper();
 

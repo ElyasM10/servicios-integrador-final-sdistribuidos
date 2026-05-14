@@ -1,5 +1,6 @@
 package org.distribuidos.editorial;
 
+import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -7,7 +8,6 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import org.distribuidos.editorial.modelo.Editorial;
 import org.distribuidos.editorial.repository.EditorialRepository;
-import org.distribuidos.editorial.transferible.TransferibleEditorial;
 import org.jboss.logging.Logger;
 
 @Startup
@@ -19,6 +19,10 @@ public class DataLoader {
 
     @Inject
     Logger auditor;
+
+    void onStop(@Observes ShutdownEvent ev) {
+        auditor.info("Servicio editoriales se esta deteniendo...");
+    }
 
     void onStart(@Observes StartupEvent ev) {
 

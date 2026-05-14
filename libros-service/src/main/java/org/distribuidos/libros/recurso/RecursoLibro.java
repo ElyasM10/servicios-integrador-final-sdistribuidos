@@ -67,15 +67,15 @@ public class RecursoLibro {
     @GET
     @Path("/por-autor")
     @Operation(summary = "Retorna todos los libros que pertenecen a una autor específico.")
-    public List<Libro> obtenerPorAutor(@QueryParam("autor") Long autorId){
+    public List<TransferibleLibro> obtenerPorAutor(@QueryParam("autor") Long autorId){
         auditor.debug("Obtener libro por autor: " + autorId);
 
         List<Libro> libros = repo.findByAutor(autorId);
 
-          return libros;
-       // return libros.stream()
-           //     .map(this::aTransferible)
-             //   .toList();
+       //   return libros;
+        return libros.stream()
+                .map(this::aTransferible)
+                .toList();
     }
 
     @GET

@@ -35,6 +35,7 @@ public class RecursoAutor {
     EditorialClient editorialClient;
 
     public TransferibleAutor aTransferible(Autor autor) {
+        auditor.debug("aTransferible()");
         TransferibleAutor transferible = new TransferibleAutor();
         transferible.setId(autor.getId());
         transferible.setNombre(autor.getNombre());
@@ -89,7 +90,7 @@ public class RecursoAutor {
     public Autor obtenerPorId(@PathParam("id") Long id){
         auditor.debug("Obtener por id: "+id);
         Autor autor = repo.findById(id);
-        return autor;
+       return autor;
     }
 
     @GET
@@ -103,13 +104,13 @@ public class RecursoAutor {
     @GET
     @Path("/editorial")
     @Operation(summary = "Retorna todos los autores que pertenecen a una editorial específica.")
-    public List<Autor> obtenerPorEditorial(@QueryParam("editorial") Long editorialId){
+    public List<TransferibleAutor> obtenerPorEditorial(@QueryParam("editorial") Long editorialId){
         auditor.debug("Obtener por editorial: "+editorialId);
         List<Autor> autores = repo.findByEditorial(editorialId);
-        return autores;
-       // return autores.stream()
-         //       .map(this::aTransferible)
-           //     .toList();
+     //   return autores;
+        return autores.stream()
+                .map(this::aTransferible)
+                .toList();
     }
 
     @GET

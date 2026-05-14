@@ -80,7 +80,7 @@ public class RecursoEditorial {
     @Path("/")
     @Operation( summary = "Retorna todas las editoriales disponibles")
     public List<Editorial> obtenerTodos(){
-        auditor.debug("Obtener todos");
+        auditor.debug("Obtener todas las editoriales disponibles");
         return repo.findAll();
     }
 
