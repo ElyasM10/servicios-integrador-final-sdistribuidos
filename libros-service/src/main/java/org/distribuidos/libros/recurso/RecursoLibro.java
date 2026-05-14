@@ -55,12 +55,13 @@ public class RecursoLibro {
     @GET
     @Path("/{id}")
     @Operation( summary = "Permite obtener un libro en particular mediante su ID.")
-    public Libro obtenerPorId(@PathParam("id") Long id){
+    public TransferibleLibro obtenerPorId(@PathParam("id") Long id){
         auditor.debug("Obtener libro por id: " + id);
 
         Libro libro = repo.findById(id);
 
-        return libro;
+        TransferibleLibro resultadoLibro = aTransferible(libro);
+        return resultadoLibro;
     }
 
 
@@ -110,12 +111,9 @@ public class RecursoLibro {
         libro.setAutorId(transferibleLibroPost.getAutorId());
 
         auditor.debug("Probando guardar libro json");
-
-        repo.guardarLibro(libro);
-
-        auditor.debug("Exito al guardar");
-
-        return Response.status(Response.Status.CREATED).build();
+        Libro resultado = repo.guardarLibro(libro);
+        auditor.debug("Exito al guardar: " + resultado);
+        return Response.status(Response.Status.CREATED).entity(resultado).build();
     }
 
     @GET

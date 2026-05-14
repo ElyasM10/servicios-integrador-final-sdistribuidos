@@ -87,10 +87,11 @@ public class RecursoAutor {
     @GET
     @Path("/{id}")
     @Operation( summary = "Retorna un autor en particular mediante su ID.")
-    public Autor obtenerPorId(@PathParam("id") Long id){
-        auditor.debug("Obtener por id: "+id);
+    public TransferibleAutor obtenerPorId(@PathParam("id") Long id){
+        auditor.debug("Obtener autor por id: "+id);
         Autor autor = repo.findById(id);
-       return autor;
+        TransferibleAutor resultadoAutor = aTransferible(autor);
+       return resultadoAutor;
     }
 
     @GET
